@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "359901601323",
+    "project_id": "clone-spotify-4bbde",
+    "storage_bucket": "clone-spotify-4bbde.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:359901601323:android:51b06c19e87dfc2d90146e",
+        "android_client_info": {
+          "package_name": "com.dabeltran.clone_spotify"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "359901601323-9nitkmdaejltfvfm73nuhdqpn0mhkqoj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYj9p1UT-uDfN42wJ6WuX6duPNlhv5GX8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "359901601323-9nitkmdaejltfvfm73nuhdqpn0mhkqoj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
