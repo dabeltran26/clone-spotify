@@ -56,6 +56,7 @@ class HomeRepository {
 
     if (response.statusCode == 200) {
       Future.delayed(const Duration(minutes: 30), () async {
+        print('refresh token');
         String authorizationStr = "${Constants.clientId}:${Constants.clientSecret}";
         var bytes = utf8.encode(authorizationStr);
         var base64Str = base64.encode(bytes);

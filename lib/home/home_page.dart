@@ -3,6 +3,7 @@ import 'package:clone_spotify/home/bloc/home_event.dart';
 import 'package:clone_spotify/home/bloc/home_state.dart';
 import 'package:clone_spotify/home/repository/home_repository.dart';
 import 'package:clone_spotify/home/widgets/category_card.dart';
+import 'package:clone_spotify/playlist/playlist_page.dart';
 import 'package:clone_spotify/utils/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -55,8 +56,17 @@ class _HomePageState extends State<HomePage> {
                                   mainAxisSpacing: 8),
                               itemCount: state.categories.categories.items.length,
                               itemBuilder: (BuildContext ctx, index) {
-                                return CategoryCard(
-                                  item: state.categories.categories.items[index],
+                                return GestureDetector(
+                                  onTap: (){
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => PlayList(item: state.categories.categories.items[index],)),
+                                    );
+                                  },
+                                  child: CategoryCard(
+                                    item: state.categories.categories.items[index],
+                                  ),
                                 );
                               }),
                         )
