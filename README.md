@@ -1,16 +1,11 @@
 # clone_spotify
 
-A new Flutter project.
+Proyecto realizado en Flutter- Dart con login y registro con firebase.
+Consume api de spotify por medio de http rest y base de datos local con Hive.
+Uso de Bloc y Clean arquitecture
 
-## Getting Started
+Por que flutter ? Flutter es una tecnologia multiplataforma que nos ayuda a realzar apps para diferentes dispositivos en un menor tiempo y a diferencia de las demas tecnologias multiplataforma flutter compila a nativo directamente lo que hace que sea mas eficaz y pueda interactuar con el hardware del dispositivo por medio de platformCHannels. 
 
-This project is a starting point for a Flutter application.
+david beltran
+david.beltran2326@gmail.com
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
