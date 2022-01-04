@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:clone_spotify/models/playlist_model.dart';
+import 'package:clone_spotify/models/tracks_model.dart';
 import 'package:clone_spotify/playlist/bloc/playlist_event.dart';
 import 'package:clone_spotify/playlist/bloc/playlist_state.dart';
 import 'package:clone_spotify/playlist/repository/playlist_repository.dart';
@@ -20,6 +21,13 @@ class PlayListBloc extends Bloc<PlayListEvent, PlayListState> {
       tokenType = usersBox.get('tokenType');
       PlayList playList  = await _playListRepository.fetchPlayLists('CO','$tokenType $token',event.id);
       emit(DataState(playList));
+    });
+
+    on<GetTacks>( (event, emit ) async {
+      token = usersBox.get('accessToken');
+      tokenType = usersBox.get('tokenType');
+      Tracks tracksList  = await _playListRepository.fetchTracks(event.playListId,'$tokenType $token');
+      emit(TracksState(tracksList));
     });
   }
 }

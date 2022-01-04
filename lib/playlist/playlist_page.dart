@@ -4,6 +4,7 @@ import 'package:clone_spotify/playlist/bloc/playlist_event.dart';
 import 'package:clone_spotify/playlist/bloc/playlist_state.dart';
 import 'package:clone_spotify/playlist/repository/playlist_repository.dart';
 import 'package:clone_spotify/playlist/widgets/play_list_card.dart';
+import 'package:clone_spotify/playlist/widgets/tacks_card.dart';
 import 'package:clone_spotify/utils/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,11 +19,11 @@ class PlayList extends StatefulWidget {
 
 class _PlayListState extends State<PlayList> {
   PlayListRepository playListRepository = PlayListRepository();
-  late PlayListBloc? homeBloc;
+  late PlayListBloc? playListBloc;
 
   @override
   void initState() {
-    homeBloc = PlayListBloc(playListRepository)..add(Init(widget.item.id));
+    playListBloc = PlayListBloc(playListRepository)..add(Init(widget.item.id));
     super.initState();
   }
 
@@ -45,7 +46,7 @@ class _PlayListState extends State<PlayList> {
             ),
           ),
           child: BlocBuilder(
-            bloc: homeBloc,
+            bloc: playListBloc,
             builder: (context, state) {
               if (state is DataState) {
                 return Stack(children: [
@@ -63,7 +64,7 @@ class _PlayListState extends State<PlayList> {
                               itemBuilder: (BuildContext ctx, index) {
                                 return GestureDetector(
                                   onTap: (){
-
+                                    playListBloc?.add(GetTacks(state.playList.playlists.items[index].id));
                                   },
                                   child: PlayListCard(
                                     item: state.playList.playlists.items[index],
@@ -75,6 +76,37 @@ class _PlayListState extends State<PlayList> {
                     ),
                   ),
                   state.playList.playlists.items.isEmpty
+                      ? Container(
+                    padding: const EdgeInsets.all(10.0),
+                    alignment: Alignment.center,
+                    child: Text(
+                      "No hay coincidencias.",
+                      style: TextStyle(color: MyTheme.generalColors.black),
+                      textAlign: TextAlign.center,
+                    ),
+                  )
+                      : const SizedBox(),
+                ]);
+              }
+
+              if(state is TracksState){
+                return Stack(children: [
+                  SafeArea(
+                    child: Column(
+                      children: [
+                        Expanded(
+                          child: ListView.builder
+                            (
+                              itemCount: state.tracks.tracks.items.length,
+                              itemBuilder: (BuildContext ctxt, int index) {
+                                return TrackCard(item: state.tracks.tracks.items[index],);
+                              }
+                          )
+                        )
+                      ],
+                    ),
+                  ),
+                  state.tracks.tracks.items.isEmpty
                       ? Container(
                     padding: const EdgeInsets.all(10.0),
                     alignment: Alignment.center,

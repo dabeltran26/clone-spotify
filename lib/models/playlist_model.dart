@@ -85,7 +85,7 @@ class Item {
   dynamic primaryColor;
   dynamic public;
   String snapshotId;
-  Tracks tracks;
+  LinkTracks tracks;
   String type;
   String uri;
 
@@ -101,7 +101,7 @@ class Item {
     primaryColor: json["primary_color"],
     public: json["public"],
     snapshotId: json["snapshot_id"],
-    tracks: Tracks.fromJson(json["tracks"]),
+    tracks: LinkTracks.fromJson(json["tracks"]),
     type: json["type"],
     uri: json["uri"],
   );
@@ -200,8 +200,8 @@ class Owner {
   };
 }
 
-class Tracks {
-  Tracks({
+class LinkTracks {
+  LinkTracks({
     required this.href,
     required this.total,
   });
@@ -209,7 +209,7 @@ class Tracks {
   String href;
   int total;
 
-  factory Tracks.fromJson(Map<String, dynamic> json) => Tracks(
+  factory LinkTracks.fromJson(Map<String, dynamic> json) => LinkTracks(
     href: json["href"],
     total: json["total"],
   );

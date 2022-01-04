@@ -1,5 +1,5 @@
-import 'package:clone_spotify/models/categories_model.dart';
 import 'package:clone_spotify/models/playlist_model.dart';
+import 'package:clone_spotify/models/tracks_model.dart';
 import 'package:flutter/material.dart';
 
 @immutable
@@ -18,6 +18,11 @@ class Initialized extends PlayListState{
 class DataState extends PlayListState{
   final PlayList playList;
   DataState(this.playList);
+}
+
+class TracksState extends PlayListState{
+  final Tracks tracks;
+  TracksState(this.tracks);
 }
 
 

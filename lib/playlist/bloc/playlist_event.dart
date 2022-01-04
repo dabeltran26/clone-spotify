@@ -8,9 +8,9 @@ class Init extends PlayListEvent{
   Init(this.id);
 }
 
-class UpdateEvent extends PlayListEvent{
-  final String text;
-  UpdateEvent( this.text);
+class GetTacks extends PlayListEvent{
+  final String playListId;
+  GetTacks( this.playListId);
 
   @override
   List<Object> get props => [];
