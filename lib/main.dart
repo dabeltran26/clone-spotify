@@ -35,6 +35,7 @@ init() async {
     ..registerAdapter(UsuarioAdapter())
     ..registerAdapter(ServerAdapter());
   await Hive.openBox('usersBox');
+  await Hive.openBox('spotify');
 }
 
 class MyApp extends StatelessWidget {

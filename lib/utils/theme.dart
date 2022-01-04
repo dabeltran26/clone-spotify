@@ -8,8 +8,9 @@ class MyTheme {
 class _GeneralColors{
   final Color black = const Color(0xFF000000);
   final Color white = const Color(0xFFFFFFFF);
-  final Color green =  const Color(0xFF017E14);
-  final Color grey =  const Color(0xFF808080);
+  final Color green =  const Color(0xFF1DB954);
+  final Color grey =  const Color(0xFF696969);
+  final Color purple =  const Color(0xFF7E48E5);
 }
 
 class _GeneralTextStyles{
