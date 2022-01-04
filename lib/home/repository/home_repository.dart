@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:clone_spotify/models/authorization_model.dart';
 import 'package:clone_spotify/models/categories_model.dart';
@@ -55,26 +56,6 @@ class HomeRepository {
     final response = await http.post(uri, headers: headers);
 
     if (response.statusCode == 200) {
-      Future.delayed(const Duration(minutes: 30), () async {
-        print('refresh token');
-        String authorizationStr = "${Constants.clientId}:${Constants.clientSecret}";
-        var bytes = utf8.encode(authorizationStr);
-        var base64Str = base64.encode(bytes);
-
-        String authorization = 'Basic ' + base64Str;
-
-        final urlRefresh = Uri.http(accessUrl!,'/api/token');
-
-        var responseNewToken = await http.post(urlRefresh, body: {
-          'grant_type': 'refresh_token',
-          'refresh_token': usersBox.get('refreshToken'),
-          'redirect_uri': '$redirect_uri'
-        },headers: {'Authorization' : authorization,'Content-Type': 'application/x-www-form-urlencoded'});
-        AuthorizationModel tokenRefresh =  AuthorizationModel.fromJson(json.decode(responseNewToken.body));
-        usersBox.put('accessToken', tokenRefresh.accessToken);
-        usersBox.put('tokenType', tokenRefresh.tokenType);
-        usersBox.put('refreshToken', tokenRefresh.refreshToken);
-      });
       return AuthorizationModel.fromJson(json.decode(response.body));
     } else {
       throw Exception('Error');
@@ -97,4 +78,22 @@ class HomeRepository {
     }
   }
 
+  void refreshToken() async {
+      print('refresh token');
+      String authorizationStr = "${Constants.clientId}:${Constants.clientSecret}";
+      var bytes = utf8.encode(authorizationStr);
+      var base64Str = base64.encode(bytes);
+      String authorization = 'Basic ' + base64Str;
+      String urlToken = accessUrl!  + '/api/token'+
+          "?grant_type=refresh_token" +
+          "&refresh_token=${ usersBox.get('refreshToken')}" +
+          "&redirect_uri=$redirect_uri";
+
+      Map<String, String> headersRefresh = {'Authorization': authorization, 'Content-Type': 'application/x-www-form-urlencoded'};
+      final uriRefresh = Uri.parse(urlToken);
+      final responseNewToken = await http.post(uriRefresh, headers: headersRefresh);
+      AuthorizationModel tokenRefresh =  AuthorizationModel.fromJson(json.decode(responseNewToken.body));
+      usersBox.put('accessToken', tokenRefresh.accessToken);
+      usersBox.put('tokenType', tokenRefresh.tokenType);
+  }
 }

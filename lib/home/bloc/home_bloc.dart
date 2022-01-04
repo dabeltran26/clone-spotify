@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:clone_spotify/home/bloc/home_event.dart';
 import 'package:clone_spotify/home/bloc/home_state.dart';
@@ -14,6 +16,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   late String tokenType;
   late String refreshToken;
   late Categories categories;
+  late Timer refreshTime;
 
   HomeBloc(this._homeRepository) : super( Initialized() ) {
 
@@ -23,7 +26,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
             usersBox.get('tokenType') != null) {
           token = usersBox.get('accessToken');
           tokenType = usersBox.get('tokenType');
-          tokenType = usersBox.get('refreshToken');
+          refreshToken = usersBox.get('refreshToken');
         } else {
           String code = await _homeRepository.fetchCode();
           AuthorizationModel accessToken = await _homeRepository
@@ -33,17 +36,22 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           refreshToken = accessToken.refreshToken;
           usersBox.put('accessToken', token);
           usersBox.put('tokenType', tokenType);
-          usersBox.put('refreshToken', tokenType);
+          usersBox.put('refreshToken', refreshToken);
         }
+        refreshTime = Timer.periodic(const Duration(minutes: 30), (timer) {
+          _homeRepository.refreshToken();
+        });
       }catch(e){
         String code = await _homeRepository.fetchCode();
         AuthorizationModel accessToken = await _homeRepository
             .getAccessTokenSpotify(code);
         token = accessToken.accessToken;
         tokenType = accessToken.tokenType;
+        refreshToken = accessToken.refreshToken;
         usersBox.put('accessToken', token);
         usersBox.put('tokenType', tokenType);
-        usersBox.put('refreshToken', tokenType);
+        usersBox.put('refreshToken', refreshToken);
+        _homeRepository.refreshToken();
       }
         categories = await _homeRepository.fetchCategories('CO', '$tokenType $token');
 
