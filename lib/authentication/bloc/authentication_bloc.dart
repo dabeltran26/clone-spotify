@@ -16,13 +16,13 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
       try{
         final isSignedIn = await _userRepository.isSignedIn();
         if(isSignedIn){
-          //final user = await _userRepository.getUser();
+          /*final user = await _userRepository.getUser();
           if(usersBox.get('users') != null){
             myUser = usersBox.get('users');
           }else{
             myUser = await _userRepository.getInfoUser('odraude1362@gmail.com','Jorgito123');
             usersBox.put('users', myUser);
-          }
+          }*/
           emit(const Authenticated());
         }
         else{
