@@ -34,30 +34,10 @@ class _LoginFormState extends State<LoginForm> {
   Widget build(BuildContext context) {
     return BlocListener<LoginBloc, LoginState>(listener: (context, state) {
       if (state.isFailure) {
-        Scaffold.of(context)
-          ..hideCurrentSnackBar()
-          ..showSnackBar(
-            SnackBar(
-              content: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [Text('Error'), Icon(Icons.error)],
-              ),
-              backgroundColor: Colors.red,
-            ),
-          );
+        print('Error');
       }
       if (state.isSubmitting) {
-        Scaffold.of(context)
-          ..hideCurrentSnackBar()
-          ..showSnackBar(SnackBar(
-            content: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const <Widget>[
-                Text('Ingresando'),
-                CircularProgressIndicator(),
-              ],
-            ),
-          ));
+        const CircularProgressIndicator();
       }
       if (state.isSuccess) {
         BlocProvider.of<AuthenticationBloc>(context).add(LoggedIn());
@@ -103,18 +83,15 @@ class _LoginFormState extends State<LoginForm> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: <Widget>[
-                          RaisedButton(
+                          GestureDetector(
                               child: SizedBox(
                                   width: padding.width * 0.5,
                                   height: padding.height * 0.06,
                                   child: const Center(child: Text('Iniciar sesion'))),
-                              color: MyTheme.generalColors.green,
-                              textColor: MyTheme.generalColors.white,
-                              shape: const StadiumBorder(),
-                              onPressed: _onFormSubmitted),
-                          FlatButton(
+                              onTap: _onFormSubmitted),
+                          GestureDetector(
                             child: const Text('regitrate'),
-                            onPressed: () {
+                            onTap: () {
                               Navigator.of(context)
                                   .push(MaterialPageRoute(builder: (context) {
                                 return RegisterPage();

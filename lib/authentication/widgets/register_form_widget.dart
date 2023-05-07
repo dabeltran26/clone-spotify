@@ -43,35 +43,14 @@ class _RegisterFormState extends State<RegisterForm> {
       child: BlocListener<RegisterBloc, RegisterState>(
           listener: (context, state) {
             if (state.isSubmitting) {
-              Scaffold.of(context)
-                ..hideCurrentSnackBar()
-                ..showSnackBar(SnackBar(
-                  content: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const <Widget>[
-                      Text('Registering'),
-                      CircularProgressIndicator()
-                    ],
-                  ),
-                ));
+              print('Error');
             }
             if (state.isSuccess) {
               BlocProvider.of<AuthenticationBloc>(context).add(LoggedIn());
               Navigator.of(context).pop();
             }
             if (state.isFailure) {
-              Scaffold.of(context)
-                ..hideCurrentSnackBar()
-                ..showSnackBar(SnackBar(
-                  content: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const <Widget>[
-                      Text('Registration Failure'),
-                      Icon(Icons.error)
-                    ],
-                  ),
-                  backgroundColor: Colors.red,
-                ));
+              print('Error');
             }
           }, child: BlocBuilder<RegisterBloc, RegisterState>(
         builder: (context, state) {
@@ -111,15 +90,12 @@ class _RegisterFormState extends State<RegisterForm> {
                     },
                   ),
                   const SizedBox(height: 20,),
-                  RaisedButton(
+                  GestureDetector(
                     child: SizedBox(
                         width: padding.width * 0.5,
                         height: padding.height * 0.06,
                         child: const Center(child: Text('Registrarme'))),
-                    color: MyTheme.generalColors.green,
-                    textColor: MyTheme.generalColors.white,
-                    shape: const StadiumBorder(),
-                    onPressed: _onFormSubmitted,
+                    onTap: _onFormSubmitted,
                   ),
                 ],
               ),
